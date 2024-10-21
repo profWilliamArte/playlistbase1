@@ -13,36 +13,39 @@ const Header = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [filtro, setFiltro] = useState(""); // Estado para el filtro
     const [tipoFiltro, setTipoFiltro] = useState(""); // Estado para el tipo de filtro
+    const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda
 
     const handleAutorSelect = (nombre) => {
+        setSearchTerm("");
         setAutor(nombre);
         setFiltro(nombre);
         setTipoFiltro("autor");
     };
 
     const handleGeneroSelect = (nombre) => {
+        setSearchTerm("");
         setGenero(nombre);
         setFiltro(nombre);
         setTipoFiltro("genero");
     };
 
-
     const handleCancionSelect = (genero, autor, titulo, interprete, url) => {
-        // Check if the song already exists in the list
+        // Verificar si la canción ya existe en la lista
         const songExists = canciones.some(song => song.titulo === titulo && song.autor === autor);
-    
+
         if (!songExists) {
-            // If the song does not exist, add it to the list
-            setCanciones(prev => [...prev, { genero, autor, titulo, interprete, url }]); // Agregar la canción a la lista
-            setCancionActual({ genero, autor, titulo, interprete, url }); // Establecer la canción actual
+            // Si la canción no existe, agregarla a la lista
+            setCanciones(prev => [...prev, { genero, autor, titulo, interprete, url }]);
+            setCancionActual({ genero, autor, titulo, interprete, url });
         } else {
-            console.log("La canción ya existe en la lista."); // Optional: Log or alert the user
+            console.log("La canción ya existe en la lista."); // Opcional: Log o alerta al usuario
         }
     };
 
     const agregarTodas = (canciones) => {
         setCanciones(prev => [...prev, ...canciones]); // Agregar todas las canciones a la lista
     };
+
     return (
         <div className="container text-center">
             <h3 className="pt-3">Play Slist</h3>
@@ -52,17 +55,16 @@ const Header = () => {
             <div className="pt-3 d-flex flex-row flex-wrap justify-content-center">
                 <FiltroGeneros setGenero={handleGeneroSelect} />
             </div>
-            <Buscador/>
+            <Buscador  setSearchTerm={setSearchTerm}  searchTerm={searchTerm}/> 
             <div className="py-3">
                 <Reproductor 
                     canciones={canciones} 
-                    setCanciones={setCanciones} // Ensure this is passed
+                    setCanciones={setCanciones} // Asegúrate de que esto se pase
                     setCancionActual={setCancionActual} 
                     isPlaying={isPlaying} 
                     setIsPlaying={setIsPlaying} 
                 />
             </div>
-        
             <div>
                 <ListadeCanciones 
                     setCancion={handleCancionSelect} 
@@ -71,6 +73,7 @@ const Header = () => {
                     filtro={filtro} 
                     tipoFiltro={tipoFiltro} 
                     agregarTodo={agregarTodas}
+                    searchTerm={searchTerm} // Pasar el término de búsqueda a ListadeCanciones
                 />
             </div>
         </div>

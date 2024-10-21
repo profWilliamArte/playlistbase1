@@ -43,6 +43,7 @@ const Reproductor = ({ canciones, setCanciones, setCancionActual, isPlaying, set
 
     const limpiarLista = () => {
         setCanciones([]); 
+        setDuration(0);
         setCancionActual(null); 
         setIsPlaying(false); 
     };
@@ -65,6 +66,7 @@ const Reproductor = ({ canciones, setCanciones, setCancionActual, isPlaying, set
                 </div>
 
                 <div className='col-8 text-center card' data-bs-theme="dark">
+
                     <div className='card-body'>
                         <h3>{canciones.length > 0 && canciones[index].autor}</h3>
                         <p>{canciones.length > 0 && canciones[index].genero}</p>
@@ -100,6 +102,7 @@ const Reproductor = ({ canciones, setCanciones, setCancionActual, isPlaying, set
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>

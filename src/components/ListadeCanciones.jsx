@@ -42,7 +42,7 @@ const ListadeCanciones = ({ setCancion, genero, autor, filtro, tipoFiltro, agreg
             <p className="text-center">{cancionesFiltradas.length} Canciones encontradas de ({datos.length})</p>
             <button 
                 className="btn btn-outline-success mb-3" 
-                onClick={() => agregarTodo(cancionesFiltradas)} // Call the function with filtered songs
+                onClick={() => agregarTodo(cancionesFiltradas)} // Llamar a la función con las canciones filtradas
             >
                 Agregar Todas las Canciones
             </button>
