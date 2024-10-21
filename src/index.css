@@ -1,0 +1,5 @@
+.listadereproduccion{
+    min-height: 200px;
+    max-height: 250px;
+    overflow: auto;
+}
