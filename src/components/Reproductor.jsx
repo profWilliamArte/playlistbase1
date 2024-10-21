@@ -28,11 +28,11 @@ const Reproductor = ({ canciones, setCanciones, setCancionActual, isPlaying, set
     };
 
     const handleProgress = (progress) => {
-        setCurrentTime(progress.playedSeconds); 
+        setCurrentTime(progress.playedSeconds);
     };
 
     const handleDuration = (duration) => {
-        setDuration(duration); 
+        setDuration(duration);
     };
 
     const handleSeekChange = (e) => {
@@ -42,22 +42,24 @@ const Reproductor = ({ canciones, setCanciones, setCancionActual, isPlaying, set
     };
 
     const limpiarLista = () => {
-        setCanciones([]); 
+        setCanciones([]);
         setDuration(0);
-        setCancionActual(null); 
-        setIsPlaying(false); 
+        setCancionActual(null);
+        setIsPlaying(false);
     };
 
     return (
         <div className="reproductor">
-            <div className='row'>
+            <div className='row h-100'>
                 <div className='col-4 text-start card listadereproduccion' data-bs-theme="dark">
                     <p className='text-center my-2 fw-bold'>Lista de Reproducción ({canciones.length})</p>
                     {canciones && canciones.length > 0 && canciones.map((item, idx) => (
-                        <div 
-                            key={item.id} 
-                            style={{ 
-                                backgroundColor: idx === index ? '#f0ad4e' : 'transparent', // Cambia el color de fondo si es la canción actual
+                        <div
+                            key={idx}
+                            style={{
+                                backgroundColor: idx === index ? '#e67e22' : 'transparent',
+                                padding: '5px 10px',
+                                borderRadius: '5px',
                             }}
                         >
                             {item.titulo.toLowerCase()}
@@ -68,20 +70,31 @@ const Reproductor = ({ canciones, setCanciones, setCancionActual, isPlaying, set
                 <div className='col-8 text-center card' data-bs-theme="dark">
 
                     <div className='card-body'>
-                        <h3>{canciones.length > 0 && canciones[index].autor}</h3>
-                        <p>{canciones.length > 0 && canciones[index].genero}</p>
-                        <p>{canciones.length > 0 && canciones[index].interprete}</p>
-                        <p>{canciones.length > 0 && canciones[index].titulo}</p>
+
+                        {canciones.length > 0 && (
+                            <div className='row'>
+                                <div className='col-4'>
+                                    <img src={canciones[index].coverImage} alt="" className='img-fluid img-thumbnail' />
+                                </div>
+                                <div className='col-8 text-start'>
+                                    <h5>{canciones[index].autor}</h5>
+                                    <p>{canciones[index].genero}<br />
+                                        {canciones[index].interprete}<br />
+                                        {canciones[index].titulo}</p>
+                                </div>
+                            </div>
+
+                        )}
                         {canciones.length > 0 && (
                             <ReactPlayer
                                 url={canciones[index].url}
                                 playing={isPlaying}
                                 onEnded={() => changeSong('next')}
-                                onProgress={handleProgress} // Actualiza el tiempo actual
-                                onDuration={handleDuration} // Establece la duración total
-                                width="0" // Ocultar ancho
-                                height="0" // Ocultar altura
-                                style={{ display: 'none' }} // Ocultar reproductor
+                                onProgress={handleProgress}
+                                onDuration={handleDuration}
+                                width="0"
+                                height="0"
+                                style={{ display: 'none' }}
                             />
                         )}
                         <div className="d-flex flex-column align-items-center">
@@ -92,17 +105,19 @@ const Reproductor = ({ canciones, setCanciones, setCancionActual, isPlaying, set
                                 value={currentTime}
                                 onChange={handleSeekChange}
                                 className="progress-bar"
-                                style={{ width: '80%', margin: '5px 0' }} // Ajusta el ancho y el margen
+                                style={{ width: '80%', margin: '4px 0' }}
                             />
                             <div>
-                                <button className='btn btn-outline-warning btn-sm' onClick={() => changeSong('prev')}><IoPlaySkipBack /></button>
-                                <button className='btn btn-outline-warning btn-sm' onClick={handlePlayPause}>{isPlaying ? <FaPause /> : <FaPlay />}</button>
-                                <button className='btn btn-outline-warning btn-sm' onClick={() => changeSong('next')}><IoPlaySkipForward /></button>
-                                <button className='btn btn-outline-danger btn-sm' onClick={limpiarLista}>Limpiar Lista</button>
+                                <button className='btn btn-outline-warning btn-sm mx-1' onClick={() => changeSong('prev')}><IoPlaySkipBack /></button>
+                                <button className='btn btn-outline-warning btn-sm mx-1' onClick={handlePlayPause}>{isPlaying ? <FaPause /> : <FaPlay />}</button>
+                                <button className='btn btn-outline-warning btn-sm mx-1' onClick={() => changeSong('next')}><IoPlaySkipForward /></button>
+                                <button className='btn btn-outline-danger btn-sm mx-1' onClick={limpiarLista}>Limpiar Lista</button>
                             </div>
                         </div>
+
+
                     </div>
-                    
+
                 </div>
             </div>
         </div>

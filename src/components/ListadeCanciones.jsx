@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const API = 'http://backplaylist.test/api/cancion/getCancion.php';
 
-const ListadeCanciones = ({ setCancion, genero, autor, filtro, tipoFiltro, agregarTodo, searchTerm }) => {
+const ListadeCanciones = ({ setCancion, genero, autor, filtro, tipoFiltro, agregarTodo, searchTerm, coverImage }) => {
     const [datos, setDatos] = useState([]);
 
     const getDatos = async () => {
@@ -19,21 +19,18 @@ const ListadeCanciones = ({ setCancion, genero, autor, filtro, tipoFiltro, agreg
         getDatos();
     }, []);
 
-    // Inicializar cancionesFiltradas
     let cancionesFiltradas = datos;
-
-    // Filtrar canciones según el filtro y tipo de filtro
     if (tipoFiltro === "autor") {
         cancionesFiltradas = datos.filter(item => item.autor === filtro);
     } else if (tipoFiltro === "genero") {
         cancionesFiltradas = datos.filter(item => item.genero === filtro);
     }
 
-    // Filtrar canciones según el término de búsqueda
     if (searchTerm) {
         cancionesFiltradas = datos.filter(item => 
             item.titulo.toLowerCase().includes(searchTerm.toLowerCase()) || 
-            item.autor.toLowerCase().includes(searchTerm.toLowerCase())
+            item.autor.toLowerCase().includes(searchTerm.toLowerCase())  || 
+            item.interprete.toLowerCase().includes(searchTerm.toLowerCase())
         );
     }
 
@@ -47,7 +44,7 @@ const ListadeCanciones = ({ setCancion, genero, autor, filtro, tipoFiltro, agreg
                 Agregar Todas las Canciones
             </button>
             {cancionesFiltradas.map((item) => (
-                <div key={item.id} className="col-md-4 mb-3" onClick={() => setCancion(item.genero, item.autor, item.titulo, item.interprete, item.url)}>
+                <div key={item.id} className="col-md-4 mb-3" onClick={() => setCancion(item.genero, item.autor, item.titulo, item.interprete, item.url, item.coverImage)}>
                     <div className="card h-100" data-bs-theme="dark">
                         <div className="card-body d-flex align-items-center p-1">
                             <img
@@ -59,7 +56,7 @@ const ListadeCanciones = ({ setCancion, genero, autor, filtro, tipoFiltro, agreg
                             />
                             <div>
                                 <p>
-                                    {item.autor}<br />
+                                    {item.interprete}<br />
                                     {item.titulo}<br />
                                     {item.genero}
                                 </p>

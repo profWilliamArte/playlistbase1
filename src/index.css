@@ -3,3 +3,8 @@
     max-height: 250px;
     overflow: auto;
 }
+.contenedor{
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
