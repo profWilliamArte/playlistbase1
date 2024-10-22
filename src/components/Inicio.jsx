@@ -14,12 +14,14 @@ const Inicio = () => {
     const [filtro, setFiltro] = useState(""); // Estado para el filtro
     const [tipoFiltro, setTipoFiltro] = useState(""); // Estado para el tipo de filtro
     const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda
+    const [titulo, setTitulo] = useState("");
 
     const handleAutorSelect = (nombre) => {
         setSearchTerm("");
         setAutor(nombre);
         setFiltro(nombre);
         setTipoFiltro("autor");
+        setTitulo(` Canciones de la lista de ${nombre}`);
     };
 
     const handleGeneroSelect = (nombre) => {
@@ -27,6 +29,7 @@ const Inicio = () => {
         setGenero(nombre);
         setFiltro(nombre);
         setTipoFiltro("genero");
+        setTitulo(` Canciones del Genero ${nombre}`);
     };
 
     const handleCancionSelect = (genero, autor, titulo, interprete, url, coverImage	) => {
@@ -71,7 +74,8 @@ const Inicio = () => {
                     filtro={filtro} 
                     tipoFiltro={tipoFiltro} 
                     agregarTodo={agregarTodas}
-                    searchTerm={searchTerm} // Pasar el término de búsqueda a ListadeCanciones
+                    searchTerm={searchTerm}
+                    titulo={titulo} 
                 />
             </div>
         </div>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 //const API = 'http://backplaylist.test/api/cancion/getCancion.php';
 const API = 'https://arsistemaweb.com/playlist2/back/api/cancion/getCancion.php';
 
-const ListadeCanciones = ({ setCancion, genero, autor, filtro, tipoFiltro, agregarTodo, searchTerm, coverImage }) => {
+const ListadeCanciones = ({ setCancion, genero, autor, filtro, tipoFiltro, agregarTodo, searchTerm, coverImage, titulo }) => {
     const [datos, setDatos] = useState([]);
 
     const getDatos = async () => {
@@ -41,7 +41,8 @@ const ListadeCanciones = ({ setCancion, genero, autor, filtro, tipoFiltro, agreg
 
     return (
         <div className="text-start row mt-3">
-            <p className="text-center">{cancionesFiltradas.length} Canciones encontradas de ({datos.length})</p>
+           
+            <p className="text-center">{cancionesFiltradas.length}<apan className="fw-bold"> {titulo} </apan> de ({datos.length})</p>
             <button 
                 className="btn btn-outline-success mb-3" 
                 onClick={() => agregarTodo(cancionesFiltradas)} // Llamar a la función con las canciones filtradas

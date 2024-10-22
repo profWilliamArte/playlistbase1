@@ -67,7 +67,7 @@ const Reproductor = ({ canciones, setCanciones, setCancionActual, isPlaying, set
                     ))}
                 </div>
 
-                <div className='col-6 col-md-8 text-center card' data-bs-theme="dark">
+                <div className='col-6 col-md-8 text-center card listadereproduccion' data-bs-theme="dark">
 
                     <div className='card-body'>
 
