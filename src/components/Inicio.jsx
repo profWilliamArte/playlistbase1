@@ -47,10 +47,10 @@ const Inicio = () => {
     return (
         <div className="container text-center">
            
-            <div className="pt-3 d-flex flex-row flex-wrap justify-content-center">
+            <div className="pt-3 ">
                 <FiltroAutores setAutor={handleAutorSelect} />
             </div>
-            <div className="pt-3 d-flex flex-row flex-wrap justify-content-center">
+            <div className="pt-3 ">
                 <FiltroGeneros setGenero={handleGeneroSelect} />
             </div>
             <Buscador  setSearchTerm={setSearchTerm}  searchTerm={searchTerm}/> 

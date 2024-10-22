@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-const API = 'http://backplaylist.test/api/genero/getGenero.php';
-
+//const API = 'http://backplaylist.test/api/genero/getGenero.php';
+const API = 'https://arsistemaweb.com/playlist2/back/api/genero/getGenero.php';
 const FiltroGeneros = ({ setGenero }) => {
     const [datos, setDatos] = useState([]);
     const getDatos = async () => {
@@ -18,14 +18,16 @@ const FiltroGeneros = ({ setGenero }) => {
         getDatos();
     }, []);
   return (
-    <>
+    <div className="menuHorizontal">
             {datos && datos.map((item) => (
                 <Link key={item.id} href="#" className="btn btn-outline-primary btn-sm m-1" onClick={() => setGenero(item.nombre)}>
                     {item.nombre}
                 </Link>
             ))}
-        </>
+    </div>
   )
 }
 
 export default FiltroGeneros
+
+

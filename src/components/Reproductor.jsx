@@ -51,38 +51,40 @@ const Reproductor = ({ canciones, setCanciones, setCancionActual, isPlaying, set
     return (
         <div className="reproductor">
             <div className='row h-100'>
-                <div className='col-4 text-start card listadereproduccion' data-bs-theme="dark">
+                <div className='col-6 col-md-4 text-start card listadereproduccion' data-bs-theme="dark">
                     <p className='text-center my-2 fw-bold'>Lista de Reproducción ({canciones.length})</p>
                     {canciones && canciones.length > 0 && canciones.map((item, idx) => (
                         <div
                             key={idx}
                             style={{
                                 backgroundColor: idx === index ? '#e67e22' : 'transparent',
-                                padding: '5px 10px',
+                                padding: '4px 8px',
                                 borderRadius: '5px',
                             }}
                         >
-                            {item.titulo.toLowerCase()}
+                            {item.titulo.toLowerCase().substring(0, 20)}
                         </div>
                     ))}
                 </div>
 
-                <div className='col-8 text-center card' data-bs-theme="dark">
+                <div className='col-6 col-md-8 text-center card' data-bs-theme="dark">
 
                     <div className='card-body'>
 
                         {canciones.length > 0 && (
                             <div className='row'>
-                                <div className='col-4'>
-                                    <img src={canciones[index].coverImage} alt="" className='img-fluid img-thumbnail' />
-                                </div>
-                                <div className='col-8 text-start'>
-                                    <h5>{canciones[index].autor}</h5>
-                                    <p>{canciones[index].genero}<br />
-                                        {canciones[index].interprete}<br />
-                                        {canciones[index].titulo}</p>
-                                </div>
+                            <div className='col-12 col-md-4 d-none d-md-block'> {/* Ocultar en móviles, mostrar en pantallas medianas y grandes */}
+                                <img src={canciones[index].coverImage} alt="" className='img-fluid img-thumbnail' />
                             </div>
+                            <div className='col-12 col-md-8 text-center'> {/* Usar col-12 en móviles, col-8 en pantallas medianas y grandes */}
+                                <h5>{canciones[index].autor}</h5>
+                                <p>
+                                    {canciones[index].genero}<br />
+                                    {canciones[index].interprete}<br />
+                                    {canciones[index].titulo.toLowerCase().substring(0, 20)}{canciones[index].titulo.length > 20 ? '...' : ''}
+                                </p>
+                            </div> 
+                        </div>
 
                         )}
                         {canciones.length > 0 && (
@@ -111,7 +113,7 @@ const Reproductor = ({ canciones, setCanciones, setCancionActual, isPlaying, set
                                 <button className='btn btn-outline-warning btn-sm mx-1' onClick={() => changeSong('prev')}><IoPlaySkipBack /></button>
                                 <button className='btn btn-outline-warning btn-sm mx-1' onClick={handlePlayPause}>{isPlaying ? <FaPause /> : <FaPlay />}</button>
                                 <button className='btn btn-outline-warning btn-sm mx-1' onClick={() => changeSong('next')}><IoPlaySkipForward /></button>
-                                <button className='btn btn-outline-danger btn-sm mx-1' onClick={limpiarLista}>Limpiar Lista</button>
+                                <button className='btn btn-outline-danger btn-sm m-1' onClick={limpiarLista}>Limpiar Lista</button>
                             </div>
                         </div>
 

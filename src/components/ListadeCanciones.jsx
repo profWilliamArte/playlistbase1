@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-const API = 'http://backplaylist.test/api/cancion/getCancion.php';
+//const API = 'http://backplaylist.test/api/cancion/getCancion.php';
+const API = 'https://arsistemaweb.com/playlist2/back/api/cancion/getCancion.php';
 
 const ListadeCanciones = ({ setCancion, genero, autor, filtro, tipoFiltro, agregarTodo, searchTerm, coverImage }) => {
     const [datos, setDatos] = useState([]);
@@ -20,6 +21,10 @@ const ListadeCanciones = ({ setCancion, genero, autor, filtro, tipoFiltro, agreg
     }, []);
 
     let cancionesFiltradas = datos;
+
+
+
+    
     if (tipoFiltro === "autor") {
         cancionesFiltradas = datos.filter(item => item.autor === filtro);
     } else if (tipoFiltro === "genero") {
@@ -44,8 +49,8 @@ const ListadeCanciones = ({ setCancion, genero, autor, filtro, tipoFiltro, agreg
                 Agregar Todas las Canciones
             </button>
             {cancionesFiltradas.map((item) => (
-                <div key={item.id} className="col-md-4 mb-3" onClick={() => setCancion(item.genero, item.autor, item.titulo, item.interprete, item.url, item.coverImage)}>
-                    <div className="card h-100" data-bs-theme="dark">
+                <div key={item.id} className="col-md-6 col-lg-4 col-xxl-3 mb-3" onClick={() => setCancion(item.genero, item.autor, item.titulo, item.interprete, item.url, item.coverImage)}>
+                    <div className="card h-100 cardCanciones" data-bs-theme="dark">
                         <div className="card-body d-flex align-items-center p-1">
                             <img
                                 src={item.coverImage ? item.coverImage : './assets/portadas/generic-image.jpg'}
