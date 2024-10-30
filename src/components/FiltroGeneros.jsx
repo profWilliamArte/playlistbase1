@@ -17,15 +17,17 @@ const FiltroGeneros = ({ setGenero }) => {
     useEffect(() => {
         getDatos();
     }, []);
-  return (
-    <div className="menuHorizontal">
-            {datos && datos.map((item) => (
-                <Link key={item.id} href="#" className="btn btn-outline-primary btn-sm m-1" onClick={() => setGenero(item.nombre)}>
-                    {item.nombre}
-                </Link>
-            ))}
-    </div>
-  )
+    return (
+   
+            <div className="menuHorizontal">
+                {datos && datos.map((item) => (
+                    <Link key={item.id} href="#" className="btn btn-outline-primary btn-sm m-1" onClick={() => setGenero(item.nombre)}>
+                        {item.nombre}
+                    </Link>
+                ))}
+            </div>
+       
+    )
 }
 
 export default FiltroGeneros

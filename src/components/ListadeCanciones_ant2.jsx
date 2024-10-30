@@ -1,63 +1,42 @@
 import { useEffect, useState } from "react";
 
-//const API = 'http://backplaylist.test/api/cancion/getCancion.php';
-const API = 'https://arsistemaweb.com/playlist2/back/api/cancion/getCancion.php';
-
-const ListadeCanciones = ({ setCancion, genero, autor, filtro, tipoFiltro, agregarTodo, searchTerm, coverImage, titulo }) => {
-    const [datos, setDatos] = useState([]);
-
-    const getDatos = async () => {
-        try {
-            const response = await fetch(API);
-            const data = await response.json();
-            setDatos(data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
+const ListadeCanciones = ({ setCancion, genero, autor, filtro, tipoFiltro, agregarTodo, searchTerm, titulo, datos }) => {
+    const [cancionesFiltradas, setCancionesFiltradas] = useState([]);
 
     useEffect(() => {
-        getDatos();
-    }, []);
+        // Filtrar las canciones según el tipo de filtro y el término de búsqueda
+        let filteredSongs = datos;
 
-    let cancionesFiltradas = datos;
-
-
-
-    
-    // Verificar si los filtros de genero y autor están vacíos
-    if (!genero && !autor) {
-        // Si están vacíos, mostrar solo las primeras 100 canciones
-        cancionesFiltradas = datos.slice(0, 100);
-    } else {
-        // Aplicar los filtros si no están vacíos
         if (tipoFiltro === "autor") {
-            cancionesFiltradas = datos.filter(item => item.autor === filtro);
+            filteredSongs = datos.filter(item => item.autor === filtro);
         } else if (tipoFiltro === "genero") {
-            cancionesFiltradas = datos.filter(item => item.genero === filtro);
+            filteredSongs = datos.filter(item => item.genero === filtro);
         }
 
-        // Filtrar por término de búsqueda
         if (searchTerm) {
-            cancionesFiltradas = cancionesFiltradas.filter(item =>
+            filteredSongs = filteredSongs.filter(item =>
                 item.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 item.autor.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 item.interprete.toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
-    }
+
+        setCancionesFiltradas(filteredSongs);
+    }, [datos, filtro, tipoFiltro, searchTerm]); // Dependencias para actualizar cuando cambien
 
     return (
         <div className="text-start row mt-3">
-           
-            <p className="text-center">{cancionesFiltradas.length}<apan className="fw-bold"> {titulo} </apan> de ({datos.length})</p>
-            <button 
-                className="btn btn-outline-success mb-3" 
+            <p className="text-center">
+                {cancionesFiltradas.length}
+                <span className="fw-bold"> {titulo} </span> de ({datos.length})
+            </p>
+            <button
+                className="btn btn-outline-success mb-3"
                 onClick={() => agregarTodo(cancionesFiltradas)} // Llamar a la función con las canciones filtradas
             >
                 Agregar Todas las Canciones
             </button>
-            {cancionesFiltradas.map((item) => (
+            {cancionesFiltradas.slice(0, 10).map((item) => (
                 <div key={item.id} className="col-md-6 col-lg-4 col-xxl-3 mb-3" onClick={() => setCancion(item.genero, item.autor, item.titulo, item.interprete, item.url, item.coverImage)}>
                     <div className="card h-100 cardCanciones" data-bs-theme="dark">
                         <div className="card-body d-flex align-items-center p-1">

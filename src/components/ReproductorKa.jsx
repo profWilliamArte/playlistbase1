@@ -4,7 +4,7 @@ import { IoPlaySkipBack } from "react-icons/io5";
 import { IoPlaySkipForward } from "react-icons/io5";
 import { FaPause } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa";
-const Reproductor = ({ canciones, setCanciones, setCancionActual, isPlaying, setIsPlaying }) => {
+const ReproductorKa = ({ canciones, setCanciones, setCancionActual, isPlaying, setIsPlaying }) => {
     const [index, setIndex] = useState(0);
     const [duration, setDuration] = useState(0); // Duración total de la canción
     const [currentTime, setCurrentTime] = useState(0); // Tiempo actual de la canción
@@ -46,14 +46,13 @@ const Reproductor = ({ canciones, setCanciones, setCancionActual, isPlaying, set
         setDuration(0);
         setCancionActual(null);
         setIsPlaying(false);
-        setIndex(0);
     };
 
     return (
-        <div className="reproductor">
-            <div className='d-flex justify-start align-items-stretch '>
+        <div className="container">
+            <div className='row '>
                 
-                <div className='flex-grow-2 text-start card listadereproduccion p-2 align-self-stretch' data-bs-theme="dark">
+                <div className='col-md-3 text-start card reproductorKa' data-bs-theme="dark">
                     <p className='text-center my-2 fw-bold'>Lista de Reproducción ({canciones.length})</p>
                     {canciones && canciones.length > 0 && canciones.map((item, idx) => (
                         <div
@@ -68,39 +67,26 @@ const Reproductor = ({ canciones, setCanciones, setCancionActual, isPlaying, set
                         </div>
                     ))}
                 </div>
+                <div className='col-md-9 card reproductorKa' data-bs-theme="dark">
 
-                <div className='flex-grow-1 text-center card listadereproduccion' data-bs-theme="dark">
+                  
+               
 
-                    <div className='card-body'>
+          
+                       
                         {canciones.length > 0 && (
-                            <div className='row'>
-                            <div className='col-12 col-md-4 d-none d-md-block'> {/* Ocultar en móviles, mostrar en pantallas medianas y grandes */}
-                                <img src={canciones[index].coverImage} alt="prueba" className='img-thumbnail caratula'  />
-                            </div>
-                            <div className='col-12 col-md-8 text-center'> {/* Usar col-12 en móviles, col-8 en pantallas medianas y grandes */}
-                                <h5>{canciones[index].autor}</h5>
-                                <p>
-                                    {canciones[index].genero}<br />
-                                    {canciones[index].interprete}<br />
-                                    {canciones[index].titulo.toLowerCase()}
-                                </p>
-                            </div> 
-                        </div>
-
-                        )}
-                        {canciones.length > 0 && (
-                            
-                                 
-                                 <ReactPlayer
-                                     url={canciones[index].url}
-                                     playing={isPlaying}
-                                     onEnded={() => changeSong('next')}
-                                     onProgress={handleProgress}
-                                     onDuration={handleDuration}
-                                     width="0"
-                                     height="0"
-                                     style={{ display: 'none' }}
-                                 />
+                             
+                             <ReactPlayer
+                             url={canciones[index].url} // Asegúrate de que esta URL sea un video de Karaoke
+                             playing={isPlaying}
+                             onEnded={() => changeSong('next')}
+                             onProgress={handleProgress}
+                             onDuration={handleDuration}
+                             width="100%" // Ajusta el ancho al 100%
+                             height="100%" // Ajusta la altura al 100%
+                             style={{ maxHeight: '500px' }} // Limita la altura si es necesario
+                             controls={true} // Habilita los controles del reproductor, incluyendo pantalla completa
+                         />
                             
                         )}
                         <div className="d-flex flex-column align-items-center">
@@ -123,11 +109,10 @@ const Reproductor = ({ canciones, setCanciones, setCancionActual, isPlaying, set
 
 
                     </div>
-
-                </div>
-            </div>
+                    </div>
+              
         </div>
     );
 };
 
-export default Reproductor;
+export default ReproductorKa;

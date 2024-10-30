@@ -20,13 +20,15 @@ const FiltroAutores = ({ setAutor }) => {
     }, []);
 
     return (
-        <div className="menuHorizontal">
-            {datos && datos.map((item) => (
-                <Link key={item.id} href="#" className="btn btn-outline-info btn-sm m-1" onClick={() => setAutor(item.nombre)}>
-                    {item.nombre}
-                </Link>
-            ))}
-        </div>
+
+            <div className="menuHorizontal">
+                {datos && datos.map((item) => (
+                    <Link key={item.id} href="#" className="btn btn-outline-info btn-sm m-1" onClick={() => setAutor(item.nombre)}>
+                        {item.nombre}
+                    </Link>
+                ))}
+            </div>
+       
     );
 };
 
